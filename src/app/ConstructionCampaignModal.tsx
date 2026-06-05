@@ -11,6 +11,8 @@ const campaign = {
   qrCode: "/QRCode-otimizada.jpg",
 };
 
+const MODAL_SEEN_STORAGE_KEY = "construction-campaign-modal-seen";
+
 const photoSlots = [
   {
     title: "Escolinha",
@@ -45,7 +47,20 @@ type ConstructionCampaignModalProps = {
 export function ConstructionCampaignModal({
   defaultOpen = true,
 }: ConstructionCampaignModalProps) {
-  const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!defaultOpen) return;
+
+    try {
+      if (window.sessionStorage.getItem(MODAL_SEEN_STORAGE_KEY)) return;
+
+      window.sessionStorage.setItem(MODAL_SEEN_STORAGE_KEY, "true");
+      window.setTimeout(() => setIsOpen(true), 0);
+    } catch {
+      window.setTimeout(() => setIsOpen(true), 0);
+    }
+  }, [defaultOpen]);
 
   useEffect(() => {
     const openCampaign = () => setIsOpen(true);
@@ -62,7 +77,7 @@ export function ConstructionCampaignModal({
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-cedar px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-stone-900/20 transition hover:bg-cedar-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cedar"
+          className="fixed bottom-5 right-5 z-[90] inline-flex items-center gap-2 rounded-full bg-cedar px-5 py-3 text-sm font-semibold text-white shadow-xl shadow-stone-900/20 transition hover:bg-cedar-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cedar"
         >
           <span aria-hidden="true">+</span>
           Quero contribuir
@@ -71,7 +86,7 @@ export function ConstructionCampaignModal({
 
       {isOpen && (
         <div
-          className="fixed inset-0 z-50 grid min-h-dvh place-items-center bg-ink/78 px-0 py-0 backdrop-blur-md sm:px-6 sm:py-5"
+          className="fixed inset-0 z-[100] grid min-h-dvh place-items-center bg-ink/78 px-0 py-0 backdrop-blur-md sm:px-6 sm:py-5"
           role="dialog"
           aria-modal="true"
           aria-labelledby="construction-campaign-title"

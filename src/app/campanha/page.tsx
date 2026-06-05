@@ -104,7 +104,7 @@ function InstagramIcon() {
 export default function CampaignPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
-      <ConstructionCampaignModal defaultOpen={false} />
+      <ConstructionCampaignModal />
 
       <header className="relative z-50 border-b border-stone-200/70 bg-cream/90 backdrop-blur-xl md:sticky md:top-0">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-20 sm:px-8">
