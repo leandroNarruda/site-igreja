@@ -19,11 +19,34 @@ const caveat = Caveat({
 
 export const metadata: Metadata = {
   title: "IASD Santa Tereza",
-  description: "Site institucional da igreja.",
+  description: "Campanha de arrecadação para construção da igreja.",
+  metadataBase: new URL("https://iasdsantatereza.com.br"),
   icons: {
     icon: "/ico.jpg",
     shortcut: "/ico.jpg",
     apple: "/ico.jpg",
+  },
+  openGraph: {
+    title: "IASD Santa Tereza",
+    description: "Campanha de arrecadação para construção da igreja.",
+    url: "https://iasdsantatereza.com.br",
+    siteName: "IASD Santa Tereza",
+    images: [
+      {
+        url: "/campanha_construcao.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Campanha de construção da igreja",
+      },
+    ],
+    locale: "pt_BR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "IASD Santa Tereza",
+    description: "Campanha de arrecadação para construção da igreja.",
+    images: ["/campanha_construcao.jpg"],
   },
 };
 
