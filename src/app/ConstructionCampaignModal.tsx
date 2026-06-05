@@ -1,12 +1,14 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { Church, Heart } from "lucide-react";
 
 const campaign = {
-  goal: 90000,
-  pix: "CNPJ 00.000.000/0001-00",
+  donationUrl: "https://7me.app/71/nqkgt8",
+  donationDisplayUrl: "7me.app/71/nqkgt8",
+  qrCode: "/QRCode-otimizada.jpg",
 };
 
 const photoSlots = [
@@ -36,16 +38,14 @@ const photoSlots = [
   },
 ];
 
-const givingOptions = ["PIX", "Cartão", "Oferta", "Transparência"];
+type ConstructionCampaignModalProps = {
+  defaultOpen?: boolean;
+};
 
-const currencyFormatter = new Intl.NumberFormat("pt-BR", {
-  style: "currency",
-  currency: "BRL",
-  maximumFractionDigits: 0,
-});
-
-export function ConstructionCampaignModal() {
-  const [isOpen, setIsOpen] = useState(true);
+export function ConstructionCampaignModal({
+  defaultOpen = true,
+}: ConstructionCampaignModalProps) {
+  const [isOpen, setIsOpen] = useState(defaultOpen);
 
   useEffect(() => {
     const openCampaign = () => setIsOpen(true);
@@ -159,7 +159,7 @@ export function ConstructionCampaignModal() {
                   strokeLinecap="round"
                 />
               </svg>
-              <div className="relative grid h-full min-h-[21rem] grid-cols-2 grid-rows-[1fr_1fr_0.82fr] gap-1.5 overflow-hidden rounded-[0.8rem] sm:gap-2 sm:rounded-[1rem] lg:gap-3 lg:rounded-[1.25rem]">
+              <div className="relative grid h-full min-h-[21rem] grid-cols-2 grid-rows-[1fr_1fr_0.82fr] gap-1.5 overflow-hidden rounded-[0.8rem] bg-ink sm:gap-2 sm:rounded-[1rem] lg:gap-3 lg:rounded-[1.25rem]">
                 {photoSlots.map((slot) => (
                   <div
                     key={slot.title}
@@ -201,21 +201,12 @@ export function ConstructionCampaignModal() {
                   próprio para adorar, servir e acolher mais famílias.
                 </p>
 
-                <div className="mt-9 grid gap-4 sm:grid-cols-3">
+                <div className="mt-9 grid gap-4 sm:grid-cols-2">
                   <div className="rounded-2xl border border-stone-200 bg-white/80 p-4 shadow-sm">
                     <p className="text-sm font-medium text-muted">Campanha</p>
                     <p className="mt-2 text-xl font-bold text-cedar">Ativa</p>
                     <p className="mt-2 text-xs leading-5 text-muted">
                       Contribuições abertas para toda a comunidade.
-                    </p>
-                  </div>
-                  <div className="rounded-2xl border border-stone-200 bg-white/80 p-4 shadow-sm">
-                    <p className="text-sm font-medium text-muted">Meta</p>
-                    <p className="mt-2 text-xl font-bold text-ink">
-                      {currencyFormatter.format(campaign.goal)}
-                    </p>
-                    <p className="mt-2 text-xs leading-5 text-muted">
-                      Alvo financeiro da etapa atual da obra.
                     </p>
                   </div>
                   <div className="rounded-2xl border border-stone-200 bg-white/80 p-4 shadow-sm">
@@ -231,15 +222,18 @@ export function ConstructionCampaignModal() {
 
                 <div className="mt-9 grid gap-3 sm:grid-cols-[1.1fr_0.9fr]">
                   <a
-                    href="https://wa.me/5541985154409"
+                    href={campaign.donationUrl}
                     onClick={() => setIsOpen(false)}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl bg-cedar px-6 py-4 text-base font-bold text-white shadow-lg shadow-cedar/20 transition hover:bg-cedar-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cedar"
                   >
-                    <span className="grid size-8 place-items-center rounded-full border border-white/35">
-                      <Heart size={15} strokeWidth={2.4} aria-hidden="true" />
-                    </span>
+                    <Heart
+                      className="text-white"
+                      size={24}
+                      strokeWidth={2.2}
+                      aria-hidden="true"
+                    />
                     Quero doar
                     <span aria-hidden="true">-&gt;</span>
                   </a>
@@ -253,24 +247,36 @@ export function ConstructionCampaignModal() {
                   </a>
                 </div>
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  {givingOptions.map((option) => (
-                    <span
-                      key={option}
-                      className="rounded-full border border-stone-200 bg-white/85 px-4 py-2 text-sm font-medium text-muted shadow-sm"
-                    >
-                      {option}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="mt-8 rounded-2xl border border-cedar/15 bg-white/70 p-4">
-                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-sage">
-                    Chave PIX
-                  </p>
-                  <p className="mt-2 break-all text-sm font-semibold text-ink">
-                    {campaign.pix}
-                  </p>
+                <div className="mt-8 grid gap-4 rounded-2xl border border-cedar/15 bg-white/75 p-4 shadow-sm sm:grid-cols-[8.5rem_1fr] sm:items-center">
+                  <div className="mx-auto overflow-hidden rounded-xl border border-stone-200 bg-white p-2 shadow-sm sm:mx-0">
+                    <Image
+                      src={campaign.qrCode}
+                      alt="QRCode para abrir o aplicativo de doação"
+                      width={160}
+                      height={192}
+                      className="h-36 w-32 object-contain"
+                    />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-sage">
+                      Doe pelo aplicativo
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-muted">
+                      Escaneie o QRCode ou abra o link direto para contribuir
+                      com segurança pelo 7me.
+                    </p>
+                    <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                      <a
+                        href={campaign.donationUrl}
+                        onClick={() => setIsOpen(false)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex min-h-11 items-center justify-center rounded-full bg-clay px-5 py-2.5 text-sm font-bold text-white transition hover:bg-clay-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-clay"
+                      >
+                        {campaign.donationDisplayUrl}
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
                 <p className="mt-7 text-center text-sm font-medium text-muted">

@@ -18,8 +18,13 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Site da Igreja",
+  title: "IASD Santa Tereza",
   description: "Site institucional da igreja.",
+  icons: {
+    icon: "/ico.jpg",
+    shortcut: "/ico.jpg",
+    apple: "/ico.jpg",
+  },
 };
 
 export default function RootLayout({

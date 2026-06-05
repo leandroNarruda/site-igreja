@@ -4,11 +4,14 @@ import {
   ConstructionCampaignButton,
   ConstructionCampaignModal,
 } from "./ConstructionCampaignModal";
+import { MobileNavigationMenu } from "./MobileNavigationMenu";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
 const CHURCH_NAME = "IASD Santa Tereza";
 const WHATSAPP_URL = "https://wa.me/5541985154409";
+const INSTAGRAM_URL =
+  "https://www.instagram.com/iasdsantatereza2?utm_source=qr&igsh=czkxd3Y3NzRsdG4=";
 const ADDRESS =
   "Rua Manoel Pires Cordeiro, 422 - São Sebastiao, São José dos Pinhais - PR, 83075-218";
 
@@ -18,6 +21,7 @@ const navItems = [
   { label: "Cultos", href: "#cultos" },
   { label: "Ministérios", href: "#ministerios" },
   { label: "Contato", href: "#contato" },
+  { label: "Instagram", href: INSTAGRAM_URL, external: true },
 ];
 
 const gatherings = [
@@ -109,18 +113,10 @@ const nextEncounterSchedule: Array<{
     day: 6,
     minutes: 9 * 60,
     dayLabel: "Sábado",
-    time: "09h",
-    title: "Escola Sabatina",
-    details: "Momento de estudo da Bíblia em classes para todas as idades.",
-    image: "/adoracao-infantil-otimizada.jpg",
-  },
-  {
-    day: 6,
-    minutes: 10 * 60 + 15,
-    dayLabel: "Sábado",
-    time: "10h15",
-    title: "Culto Divino",
-    details: "Celebração com louvor, oração e mensagem bíblica.",
+    time: "09h e 10h15",
+    title: "Escola Sabatina e Culto Divino",
+    details:
+      "Escola Sabatina às 09h e Culto Divino às 10h15, com estudo da Bíblia, louvor, oração e mensagem bíblica.",
     image: "/adoracao-infantil-otimizada.jpg",
   },
   {
@@ -206,37 +202,42 @@ export default function Home() {
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
       <ConstructionCampaignModal />
 
-      <header className="sticky top-0 z-30 border-b border-stone-200/70 bg-cream/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
-          <a
-            href="#"
-            className="flex items-center gap-3"
-            aria-label="Ir para o início"
-          >
-            <span className="size-11 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-stone-200">
-              <Image
-                src="/fachada-otimizada.jpg"
-                alt="Fachada da igreja"
-                width={44}
-                height={44}
-                className="h-full w-full object-cover"
-              />
-            </span>
-            <span className="min-w-0">
-              <span className="block truncate text-base font-semibold tracking-wide text-ink">
-                {CHURCH_NAME}
+      <header className="relative z-50 border-b border-stone-200/70 bg-cream/90 backdrop-blur-xl md:sticky md:top-0">
+        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-2 px-4 min-[390px]:h-20 min-[390px]:px-5 sm:px-8">
+          <div className="flex min-w-0 items-center gap-2 min-[390px]:gap-3">
+            <MobileNavigationMenu navItems={navItems} />
+            <a
+              href="#"
+              className="flex min-w-0 items-center gap-3"
+              aria-label="Ir para o início"
+            >
+              <span className="hidden size-11 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-stone-200 md:block">
+                <Image
+                  src="/fachada-otimizada.jpg"
+                  alt="Fachada da igreja"
+                  width={44}
+                  height={44}
+                  className="h-full w-full object-cover"
+                />
               </span>
-              <span className="hidden text-xs uppercase tracking-[0.28em] text-sage sm:block">
-                Casa de oração
+              <span className="min-w-0">
+                <span className="block truncate text-sm font-semibold tracking-wide text-ink min-[390px]:text-base">
+                  {CHURCH_NAME}
+                </span>
+                <span className="hidden text-xs uppercase tracking-[0.28em] text-sage sm:block">
+                  Casa de oração
+                </span>
               </span>
-            </span>
-          </a>
+            </a>
+          </div>
 
           <nav className="hidden items-center gap-7 text-sm font-medium text-muted md:flex">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noreferrer" : undefined}
                 className="transition-colors hover:text-cedar focus-visible:text-cedar"
               >
                 {item.label}
@@ -244,9 +245,11 @@ export default function Home() {
             ))}
           </nav>
 
-          <ConstructionCampaignButton className="rounded-full bg-cedar px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-cedar-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cedar sm:px-5">
-            Quero contribuir
-          </ConstructionCampaignButton>
+          <div className="flex shrink-0 items-center gap-2">
+            <ConstructionCampaignButton className="shrink-0 rounded-full bg-cedar px-4 py-2 text-xs font-semibold leading-tight text-white shadow-sm transition hover:bg-cedar-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cedar min-[390px]:px-4 min-[390px]:py-2.5 min-[390px]:text-sm sm:px-5">
+              Quero contribuir
+            </ConstructionCampaignButton>
+          </div>
         </div>
       </header>
 
@@ -258,7 +261,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-cream/72" />
         <div className="absolute inset-0 opacity-70 [background-image:radial-gradient(circle_at_20%_20%,rgba(56,105,96,0.16),transparent_28%),radial-gradient(circle_at_78%_12%,rgba(187,138,80,0.16),transparent_26%),linear-gradient(135deg,rgba(255,255,255,0.62),rgba(244,239,228,0.18))]" />
         <motion.div
-          className="relative mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl items-center gap-12 px-5 py-8 sm:px-8 lg:grid-cols-[1.02fr_0.98fr] lg:py-20"
+          className="relative mx-auto grid min-h-[calc(100vh-4.5rem)] max-w-7xl items-center gap-12 px-5 py-8 min-[390px]:min-h-[calc(100vh-5rem)] sm:px-8 lg:grid-cols-[1.02fr_0.98fr] lg:py-20"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -270,14 +273,14 @@ export default function Home() {
             transition={{ duration: 0.55, ease: "easeOut" }}
           >
             <motion.p
-              className="mb-5 inline-flex rounded-full border border-cedar/20 bg-white/70 px-4 py-2 text-sm font-semibold text-cedar shadow-sm"
+              className="mb-5 inline-flex rounded-full border border-cedar/20 bg-white/70 px-4 py-2 text-xs font-semibold text-cedar shadow-sm min-[390px]:text-sm"
               variants={fadeUp}
               transition={{ duration: 0.55, ease: "easeOut" }}
             >
               Uma comunidade para caminhar junto
             </motion.p>
             <motion.h1
-              className="max-w-4xl text-5xl font-semibold leading-[1.03] tracking-normal text-ink sm:text-6xl lg:text-7xl"
+              className="max-w-4xl text-[2.6rem] font-semibold leading-[1.05] tracking-normal text-ink min-[390px]:text-5xl min-[390px]:leading-[1.03] sm:text-6xl lg:text-7xl"
               variants={fadeUp}
               transition={{ duration: 0.6, ease: "easeOut", delay: 0.05 }}
             >
@@ -544,6 +547,14 @@ export default function Home() {
                 className="inline-flex items-center justify-center rounded-full border border-white/35 px-6 py-3.5 text-base font-semibold text-white transition hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               >
                 Abrir mapa
+              </a>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-[linear-gradient(135deg,#feda75_0%,#fa7e1e_35%,#d62976_65%,#4f5bd5_100%)] px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-ink/15 transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              >
+                Instagram
               </a>
             </div>
           </div>
