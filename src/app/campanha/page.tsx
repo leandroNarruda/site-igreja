@@ -64,7 +64,7 @@ const projectSections = [
     icon: MapPinned,
     title: "Terreno",
     description:
-      "Já temos um direcionamento claro para o local da futura igreja. Essa etapa foca regularização, preparação e infraestrutura inicial.",
+      "O terreno da futura igreja já foi comprado. Agora seguimos com as etapas de regularização, preparação e infraestrutura inicial.",
   },
   {
     icon: Church,

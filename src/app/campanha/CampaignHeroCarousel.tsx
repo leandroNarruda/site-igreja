@@ -50,6 +50,16 @@ const heroSlides = [
     src: "https://www.youtube.com/embed/T2MHMwE5P-s?controls=1&playsinline=1&rel=0&modestbranding=1",
     alt: "Vídeo da comunidade da igreja",
   },
+  {
+    type: "video",
+    src: "https://www.youtube.com/embed/6wg_qgp-E0E?controls=1&playsinline=1&rel=0&modestbranding=1",
+    alt: "Apresentação do terreno comprado pela igreja",
+  },
+  {
+    type: "video",
+    src: "https://www.youtube.com/embed/Tug0lZijQow?controls=1&playsinline=1&rel=0&modestbranding=1",
+    alt: "Vídeo da campanha de construção",
+  },
 ];
 
 const FIRST_IMAGE_DURATION_MS = 6000;
@@ -151,9 +161,8 @@ export function CampaignHeroCarousel() {
             key={`${slide.alt}-${index}`}
             type="button"
             onClick={() => setActiveIndex(index)}
-            className={`h-1.5 rounded-full transition-all ${
-              index === activeIndex ? "w-6 bg-cedar" : "w-1.5 bg-stone-300"
-            }`}
+            className={`h-1.5 rounded-full transition-all ${index === activeIndex ? "w-6 bg-cedar" : "w-1.5 bg-stone-300"
+              }`}
             aria-label={`Ver slide ${index + 1}`}
           />
         ))}

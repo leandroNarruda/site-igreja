@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import { Church, Heart } from "lucide-react";
+import { Church, Heart, Play } from "lucide-react";
 
 const campaign = {
   donationUrl: "https://7me.app/71/nqkgt8",
@@ -11,7 +11,9 @@ const campaign = {
   qrCode: "/QRCode-otimizada.jpg",
 };
 
-const MODAL_SEEN_STORAGE_KEY = "construction-campaign-modal-seen";
+const MODAL_SEEN_STORAGE_KEY = "construction-land-video-modal-seen-v1";
+const LAND_PRESENTATION_EMBED_URL =
+  "https://www.youtube.com/embed/6wg_qgp-E0E?autoplay=1&playsinline=1&rel=0&modestbranding=1";
 
 const photoSlots = [
   {
@@ -212,11 +214,23 @@ export function ConstructionCampaignModal({
                 </h2>
                 <div className="mt-4 h-1 w-28 rounded-full bg-clay" />
                 <p className="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg">
-                  Sua contribuição nos aproxima do sonho de termos um templo
-                  próprio para adorar, servir e acolher mais famílias.
+                  Cada contribuição ajuda a transformar esse terreno em um
+                  espaço de fé, acolhimento e esperança para muitas famílias.
                 </p>
 
-                <div className="mt-9 grid gap-4 sm:grid-cols-2">
+                <div className="mt-7 overflow-hidden rounded-2xl border border-stone-200 bg-black shadow-xl shadow-stone-950/15">
+                  <div className="aspect-[9/16] sm:aspect-video">
+                    <iframe
+                      src={LAND_PRESENTATION_EMBED_URL}
+                      title="Apresentação do terreno comprado pela igreja"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                      className="h-full w-full"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:hidden">
                   <div className="rounded-2xl border border-stone-200 bg-white/80 p-4 shadow-sm">
                     <p className="text-sm font-medium text-muted">Campanha</p>
                     <p className="mt-2 text-xl font-bold text-cedar">Ativa</p>
@@ -257,6 +271,7 @@ export function ConstructionCampaignModal({
                     onClick={() => setIsOpen(false)}
                     className="inline-flex min-h-14 items-center justify-center gap-3 rounded-2xl border border-ink/25 bg-white px-6 py-4 text-base font-bold text-ink transition hover:border-cedar/45 hover:text-cedar focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cedar"
                   >
+                    <Play size={18} fill="currentColor" aria-hidden="true" />
                     Saiba mais
                     <span aria-hidden="true">-&gt;</span>
                   </a>
